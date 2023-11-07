@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}
+Главная старница
+{% endblock title %}
+{% block content %}
+{% include "includes/switcher.html" %}
+<section>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Наименование товара</th>
+                <th>Количество</th>
+                <th>До какого числа</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for instanse in data %}
+            <tr>
+                <td>{{ instanse.fields.name }}</td>
+                <td>{{instanse.fields.amount}}</td>
+                <td>{{ instanse.fields.date_snat|date:"d E Y "}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
