@@ -1,0 +1,12 @@
+<section>    
+    <nav>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link {% if index %} active {% endif %}" aria-current="page" href="{% url "pril:index" %}">30 %</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if poison %} active {% endif %}" href="{% url "pril:poison" %}">Снять</a>
+            </li>
+        </ul>
+    </nav>
+</section>
