@@ -5,3 +5,4 @@ Pillow==10.1.0
 python-dotenv==1.0.0
 sorl-thumbnail==12.10.0
 sqlparse==0.4.4
+psycopg2
