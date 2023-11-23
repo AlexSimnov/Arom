@@ -1,6 +1,6 @@
 # Arom
 
-## Комерческий проект для отслеживания просрочки
+## Комерческий проект для отслеживания испорченых продуктов
 
 ## Проект Arom умеет:
 
@@ -22,12 +22,26 @@ git clone https://github.com/AlexSimnov/Arom.git
 ## Собирите проект
 
 ```
-Проект находится на этапе отладки и деплоя
+docker build -t your_docker_username/backend ./backend
+docker build -t your_docker_username/frontend ./frontend
+```
+## Настройте docker-compose.yml и .envfile
+
+```
+POSTGRES_USER=aroma_user
+POSTGRES_PASSWORD=password
+POSTGRES_DB=aroma
+DB_HOST=db
+DB_PORT=5432
 ```
 
 ### Запуск проекта
 
 ```
-Перейдите в папку aroma
-Запустите команду 'python manage.py runserver'
+sudo docker compose -f docker-compose.yml pull
+sudo docker compose -f docker-compose.yml down
+sudo docker compose -f docker-compose.yml up -d
+sudo docker compose -f docker-compose.yml exec backend python manage.py migrate
+sudo docker compose -f docker-compose.yml exec backend python manage.py collectstatic --no-input
+sudo docker compose -f docker-compose.yml exec backend cp -r /app/static/. /app/backend_static/static/
 ```
