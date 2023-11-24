@@ -1,35 +1,33 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import UpdateView
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from .models import Product, Planogram
 from .forms import ProductForm, PlanogramForm
-import datetime as dt
+from datetime import datetime, timedelta
+from django.db.models import Q
 
 
 @login_required
 def index(request):
-    product = Product.objects.filter(date_snat__gte=dt.date.today())
-    data = serializers.serialize('python', product)
-    context = {
-        'data': data,
-    }
-    return render(request, 'pril/index.html', context)
-
-
-@login_required
-def poison(request):
     if request.POST:
         delete = request.POST.getlist('prod[]')
         for i in delete:
             x = Product.objects.get(pk=i)
             x.delete()
-            redirect('pril:poison')
-    products = Product.objects.filter(date_snat__lt=dt.date.today())
+            redirect('pril:index')
+    today = datetime.today()
+    date_plus_5_days = today + timedelta(days=5)
+    pr_fresh = Product.objects.filter(date_snat__gte=date_plus_5_days.date())
+    poison = Product.objects.filter(date_snat__lt=datetime.today())
+    pr_30 = Product.objects.filter(Q(date_snat__lt=date_plus_5_days.date()) & Q(date_snat__gt=datetime.today()))
+    fresh = serializers.serialize('python', pr_fresh)
+    prod_30 = serializers.serialize('python', pr_30)
     context = {
-        'products': products,
+        'fresh': fresh,
+        'poison': poison,
+        'prod_30': prod_30,
     }
-    return render(request, 'pril/poison_index.html', context)
+    return render(request, 'pril/index.html', context)
 
 
 @login_required
