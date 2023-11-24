@@ -28,11 +28,14 @@ docker build -t your_docker_username/frontend ./frontend
 ## Настройте docker-compose.yml и .envfile
 
 ```
-POSTGRES_USER=aroma_user
+SECRET_KEY='your_django_secret_key'
+SERVERNAMES='your_list_servernames'
+POSTGRES_USER=user
 POSTGRES_PASSWORD=password
 POSTGRES_DB=aroma
 DB_HOST=db
 DB_PORT=5432
+TRUSTED='your_trusted_url_for_django'
 ```
 
 ### Запуск проекта
