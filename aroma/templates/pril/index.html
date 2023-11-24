@@ -3,7 +3,9 @@
 Главная старница
 {% endblock title %}
 {% block content %}
-{% include "includes/switcher.html" %}
+
+<form method="post" action={% url "pril:index" %}>
+    {% csrf_token %}
 <section>
     <table class="table">
         <thead>
@@ -14,7 +16,22 @@
             </tr>
         </thead>
         <tbody>
-            {% for instanse in data %}
+            {% for instanse in poison %}
+            <tr <tr class="table-danger">>
+                <td>{{ instanse.name }}</td>
+                <td>{{instanse.amount}}</td>
+                <td>{{ instanse.date_snat|date:"d E Y "}}</td>
+                <td><input class="form-check-input" type="checkbox" name="prod[]" value="{{instanse.id}}"></td>
+            </tr>
+            {% endfor %}
+            {% for instanse in prod_30 %}
+            <tr class="table-warning">
+                <td>{{ instanse.fields.name }}</td>
+                <td>{{instanse.fields.amount}}</td>
+                <td>{{ instanse.fields.date_snat|date:"d E Y "}}</td>
+            </tr>
+            {% endfor %}
+            {% for instanse in fresh %}
             <tr>
                 <td>{{ instanse.fields.name }}</td>
                 <td>{{instanse.fields.amount}}</td>
@@ -23,5 +40,7 @@
             {% endfor %}
         </tbody>
     </table>
+    <button type="submit" class="btn btn-danger">Удалить</button>
+</form>
 </section>
 {% endblock %}
