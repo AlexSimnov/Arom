@@ -22,8 +22,8 @@ git clone https://github.com/AlexSimnov/Arom.git
 ## Собирите проект
 
 ```
-docker build -t your_docker_username/backend ./backend
-docker build -t your_docker_username/frontend ./frontend
+docker build (--platform=linux/amd64 Если машина работает на ARM ) -t your_docker_username/backend ./backend
+docker build (--platform=linux/amd64) -t your_docker_username/frontend ./frontend
 ```
 ## Настройте docker-compose.yml и .envfile
 
